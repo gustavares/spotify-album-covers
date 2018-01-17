@@ -9,6 +9,9 @@
   "author": "gustavares",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2"
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0"
   }
 }
