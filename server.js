@@ -3,6 +3,7 @@ const request = require('request');
 const querystring = require('querystring');
 const cors = require('cors');
 const app = express();
+const collage = require('./collage');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -51,14 +52,14 @@ app.get('/callback', function(req, res) {
             refresh_token = body.refresh_token;
 
         let options = {
-          url: 'https://api.spotify.com/v1/me/tracks',
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=36',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          collage.mount(body.items);
         });
       } else {
           res.redirect('/#' +
@@ -97,6 +98,10 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+
+app.get('/collage', (req, res) => {
+  console.log(res.body);
 });
 
 app.listen(8080, () => console.log('collage-endpoints started on 8080! '));
